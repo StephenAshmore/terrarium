@@ -6,6 +6,7 @@ import pygame.locals as pg
 import time
 from abc import abstractmethod
 from environments import Environment, DontLetTheRedDotGetYou, CatchTheRedDot
+from agents import RandomAgent
 
 class Controller(object):
 	def __init__(self, env: Environment) -> None:
@@ -28,6 +29,7 @@ print("Use the arrow keys to move. Press Esc to quit.")
 pygame.init()
 
 env = CatchTheRedDot()
+env.add_agent(RandomAgent())
 
 c = Controller(env)
 while c.keep_going:

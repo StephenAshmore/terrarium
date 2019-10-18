@@ -14,6 +14,5 @@ class Environment(object):
 	def render(self) -> None:
 		raise NotImplementedError('stub')
 
-	@abstractmethod
 	def on_click(self, pos: Tuple[int, int]) -> None:
-		raise NotImplementedError('stub')
+		pass
