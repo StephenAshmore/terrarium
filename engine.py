@@ -5,38 +5,17 @@ import pygame
 import pygame.locals as pg
 import time
 from abc import abstractmethod
-import numpy as np
-
-class Tool(object):
-	def __init__(self) -> None:
-		pass
-
-	@abstractmethod
-	def activate(self, params: np.ndarray) -> np.ndarray:
-		raise NotImplementedError('stub')
-
-class Agent(object):
-	def __init__(self) -> None:
-		self.tools: List[Tool] = []
-
-	def add_tool(self, tool: Tool) -> None:
-		self.tools.append(tool)
-
-	def drop_tool(self, tool_index: int) -> None:
-		if tool_index < len(self.tools) and tool_index >= -len(self.tools):
-			del self.tools[tool_index]
-
-	def activate_tool(self, tool_index: int, params: np.ndarray) -> None:
-		if tool_index < len(self.tools) and tool_index >= -len(self.tools):
-			self.tools[tool_index].activate(params)
+from environments import Environment, DontLetTheRedDotGetYou
 
 class Model(object):
-	def __init__(self) -> None:
+	def __init__(self, env: Environment) -> None:
 		self.rect = pygame.Rect(0, 0, 80, 59)
 		self.dest_x = 0
 		self.dest_y = 0
+		self.env = env
 
 	def update(self) -> None:
+		self.env.step(None)
 		if self.rect.left < self.dest_x:
 			self.rect.left += 1
 		if self.rect.left > self.dest_x:
@@ -59,6 +38,7 @@ class View(object):
 		self.model.rect = self.turtle_image.get_rect()
 
 	def update(self) -> None:
+		self.model.env.render()
 		self.screen.fill([0,200,100])
 		self.screen.blit(self.turtle_image, self.model.rect)
 		pygame.display.flip()
@@ -89,7 +69,10 @@ class Controller(object):
 
 print("Use the arrow keys to move. Press Esc to quit.")
 pygame.init()
-m = Model()
+
+env = DontLetTheRedDotGetYou()
+
+m = Model(env)
 v = View(m)
 c = Controller(m)
 while c.keep_going:

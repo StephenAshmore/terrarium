@@ -1,4 +1,5 @@
 from abc import abstractmethod
+import numpy as np
 
 class Environment(object):
 	def __init__(self) -> None:
