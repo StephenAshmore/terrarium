@@ -1,6 +1,6 @@
 from typing import Tuple
 import pygame
-from .environment import Environment
+from environments import Environment
 import numpy as np
 import pygame.locals as pg
 
@@ -9,8 +9,8 @@ class DontLetTheRedDotGetYou(Environment):
         # View stuff
 		screen_size = (800,600)
 		self.screen = pygame.display.set_mode(screen_size, 32)
-		self.red = pygame.image.load("environments/red.png")
-		self.blue = pygame.image.load("environments/blue.png")
+		self.red = pygame.image.load("environments/resources/red.png")
+		self.blue = pygame.image.load("environments/resources/blue.png")
 
         # Model stuff
 		self.rect = pygame.Rect(0, 0, 64, 64)
