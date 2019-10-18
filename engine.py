@@ -5,7 +5,7 @@ import pygame
 import pygame.locals as pg
 import time
 from abc import abstractmethod
-from environments import Environment, DontLetTheRedDotGetYou
+from environments import Environment, DontLetTheRedDotGetYou, CatchTheRedDot
 
 class Controller(object):
 	def __init__(self, env: Environment) -> None:
@@ -27,7 +27,7 @@ class Controller(object):
 print("Use the arrow keys to move. Press Esc to quit.")
 pygame.init()
 
-env = DontLetTheRedDotGetYou()
+env = CatchTheRedDot()
 
 c = Controller(env)
 while c.keep_going:
