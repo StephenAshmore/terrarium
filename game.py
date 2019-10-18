@@ -12,7 +12,7 @@ class Tool(object):
 		pass
 
 	@abstractmethod
-	def activate(self, params: np.ndarray) -> None:
+	def activate(self, params: np.ndarray) -> np.ndarray:
 		raise NotImplementedError('stub')
 
 class Agent(object):
