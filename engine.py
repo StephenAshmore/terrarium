@@ -24,7 +24,7 @@ class Agent(object):
 
 	def drop_tool(self, tool_index: int) -> None:
 		if tool_index < len(self.tools) and tool_index >= -len(self.tools):
-			self.tools.remove(tool_index)
+			del self.tools[tool_index]
 
 	def activate_tool(self, tool_index: int, params: np.ndarray) -> None:
 		if tool_index < len(self.tools) and tool_index >= -len(self.tools):
