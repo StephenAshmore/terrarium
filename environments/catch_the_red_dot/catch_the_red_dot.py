@@ -1,8 +1,10 @@
-from typing import Tuple
+from typing import Tuple, List, Any
 import pygame
 from environments import Environment
 import numpy as np
 import pygame.locals as pg
+import random
+from agents import Agent
 
 class CatchTheRedDot(Environment):
 	def __init__(self) -> None:
@@ -16,7 +18,19 @@ class CatchTheRedDot(Environment):
 		self.rect = pygame.Rect(0, 0, 64, 64)
 		self.dest_x = 0
 		self.dest_y = 0
+		self.agents: List[Agent] = []
+		self.positions: List[Any] = []
+		self.max_agents = 3
 
+	def add_agent(self, a: Agent) -> None:
+		if len(self.agents) < self.max_agents:
+			self.agents.append(a)
+			self.positions.append({ 'x': random.randrange(0, 64), 'y': random.randrange(0,64) })
+		else:
+			raise ValueError(f'You cannot add more than {self.max_agents} agents!')
+
+	def getLocation(self, agent_id: int) -> np.ndarray:
+		return self.positions[agent_id]
 
     # Advance the model
 	def step(self, params: np.ndarray) -> np.ndarray:
@@ -30,23 +44,9 @@ class CatchTheRedDot(Environment):
 			self.rect.top -= 5
 
 	def render(self) -> None:
-        # Handle key presses
-		keys = pygame.key.get_pressed()
-		if keys[pg.K_LEFT]:
-			self.dest_x -= 5
-		if keys[pg.K_RIGHT]:
-			self.dest_x += 5
-		if keys[pg.K_UP]:
-			self.dest_y -= 5
-		if keys[pg.K_DOWN]:
-			self.dest_y += 5
-
         # Draw the screen
 		self.screen.fill([0,200,100])
 		self.screen.blit(self.red, self.rect)
+		for p in self.positions:
+			self.screen.blit(self.blue, pygame.Rect(p['x'], p['y'], p['x'] + 64, p['y'] + 64))
 		pygame.display.flip()
-
-    # Handle mouse clicks
-	def on_click(self, pos: Tuple[int, int]) -> None:
-		self.dest_x = pos[0]
-		self.dest_y = pos[1]
