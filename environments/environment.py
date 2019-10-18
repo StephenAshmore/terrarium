@@ -1,3 +1,4 @@
+from typing import Tuple
 from abc import abstractmethod
 import numpy as np
 
@@ -11,4 +12,8 @@ class Environment(object):
 
 	@abstractmethod
 	def render(self) -> None:
+		raise NotImplementedError('stub')
+
+	@abstractmethod
+	def on_click(self, pos: Tuple[int, int]) -> None:
 		raise NotImplementedError('stub')
