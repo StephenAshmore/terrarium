@@ -5,7 +5,7 @@ import pygame
 import pygame.locals as pg
 import time
 from abc import abstractmethod
-from environments import Environment, DontLetTheRedDotGetYou, CatchTheRedDot
+from environments import Environment, CatchTheRedDot
 from agents import RandomAgent
 
 class Controller(object):
