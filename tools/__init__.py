@@ -1,1 +1,2 @@
-from .tool import Tool
+from .actuator import Actuator
+from .sensor import Sensor

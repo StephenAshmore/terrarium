@@ -7,7 +7,7 @@ class Environment(object):
 		pass
 
 	@abstractmethod
-	def step(self, params: np.ndarray) -> np.ndarray:
+	def step(self) -> None:
 		raise NotImplementedError('stub')
 
 	@abstractmethod
