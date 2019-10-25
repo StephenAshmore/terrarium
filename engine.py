@@ -27,15 +27,16 @@ class Controller(object):
 		env.step()
 		env.render()
 
-print("Use the arrow keys to move. Press Esc to quit.")
-pygame.init()
+if __name__ == '__main__':
+	print("Use the arrow keys to move. Press Esc to quit.")
+	pygame.init()
 
-env = CatchTheRedDot()
-env.add_agent(RandomAgent())
-env.add_agent(ReflexAgent())
+	env = CatchTheRedDot()
+	env.add_agent(RandomAgent())
+	env.add_agent(ReflexAgent())
 
-c = Controller(env)
-while c.keep_going:
-	c.update()
-	time.sleep(0.04)
-print("Goodbye")
+	c = Controller(env)
+	while c.keep_going:
+		c.update()
+		time.sleep(0.04)
+	print("Goodbye")

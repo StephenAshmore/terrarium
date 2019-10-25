@@ -17,9 +17,11 @@ class CatchTheRedDot(Environment):
         self.screen = pygame.display.set_mode(self.screen_size, 32)
         self.red = pygame.image.load("environments/resources/red.png")
         self.blue = pygame.image.load("environments/resources/blue.png")
+        self.font = pygame.font.SysFont(None, 12)
 
         # Model stuff
-        self.destination = [random.randrange(0, self.screen_size[0] - 64), random.randrange(0, self.screen_size[1] - 64)]
+        self.destination = [random.randrange(
+            0, self.screen_size[0] - 64), random.randrange(0, self.screen_size[1] - 64)]
         self.rect = pygame.Rect(
             self.destination[0],
             self.destination[1],
@@ -27,6 +29,7 @@ class CatchTheRedDot(Environment):
             self.destination[1] + 64
         )
         self.agents: List[Agent] = []
+        self.render_names = []
         self.positions: List[Any] = []
         self.max_agents = 3
         self.current_agents = 0
@@ -55,6 +58,8 @@ class CatchTheRedDot(Environment):
             a.add_actuator(Thruster(self.positions))
             a.add_id(self.current_agents)
             self.agents.append(a)
+            self.render_names.append(self.font.render(
+                a.get_name() + a.type, True, (255, 255, 255)))
             self.current_agents = self.current_agents + 1
         else:
             raise ValueError(
@@ -74,9 +79,12 @@ class CatchTheRedDot(Environment):
         # Draw the screen
         self.screen.fill([0, 200, 100])
         self.screen.blit(self.red, self.rect)
+        i = 0
         for p in self.positions:
             self.screen.blit(self.blue, pygame.Rect(
                 p[0], p[1], p[0] + 64, p[1] + 64))
+            self.screen.blit(self.render_names[i], (p[0] + 4, p[1] + 30))
+            i = i + 1
         pygame.display.flip()
 
     def check_win(self) -> int:

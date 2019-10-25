@@ -9,6 +9,8 @@ class Agent(object):
 		self.sensors: List[Sensor] = []
 		self.actuators: List[Actuator] = []
 		self.id: int = -1
+		self.name: str = ''
+		self.type: str = 'BaseAgent'
 
 	def add_id(self, id: int) -> None:
 		self.id = id
@@ -42,6 +44,12 @@ class Agent(object):
 	def activate_actuator(self, actuator_index: int, params: np.ndarray) -> None:
 		if actuator_index < len(self.actuators) and actuator_index >= -len(self.actuators):
 			return self.actuators[actuator_index].activate(params)
+
+	def set_name(self, name: str) -> None:
+		self.name = name
+
+	def get_name(self) -> str:
+		return self.name
 
 	@abstractmethod
 	def step(self) -> None:

@@ -7,6 +7,10 @@ import numpy as np
 from agents import Agent
 
 class ReflexAgent(Agent):
+    def __init__(self) -> None:
+        super().__init__()
+        self.type = 'ReflexAgent'
+
     def step(self) -> None:
         # Get current location:
         loc = self.activate_sensor(0)
