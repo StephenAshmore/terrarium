@@ -32,7 +32,7 @@ if __name__ == '__main__':
 	pygame.init()
 
 	env = CatchTheRedDot()
-	env.add_agent(RandomAgent())
+	# env.add_agent(RandomAgent())
 	env.add_agent(ReflexAgent())
 
 	c = Controller(env)
