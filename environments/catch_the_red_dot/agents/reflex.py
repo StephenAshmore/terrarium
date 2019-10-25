@@ -17,7 +17,6 @@ class ReflexAgent(Agent):
         # Get red dot location from radar:
         red = self.activate_sensor(1)
 
-        print(f'my {loc} red {red}')
         x_move = 0
         if red[0] > loc[0]:
             x_move = 1
@@ -33,5 +32,4 @@ class ReflexAgent(Agent):
         actions = np.zeros([8])
         actions[0] = x_move
         actions[1] = y_move
-        print(actions)
         self.activate_actuator(0, actions)

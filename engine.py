@@ -28,11 +28,11 @@ class Controller(object):
 		env.render()
 
 if __name__ == '__main__':
-	print("Use the arrow keys to move. Press Esc to quit.")
+	print("Press Esc to quit.")
 	pygame.init()
 
 	env = CatchTheRedDot()
-	# env.add_agent(RandomAgent())
+	env.add_agent(RandomAgent())
 	env.add_agent(ReflexAgent())
 
 	c = Controller(env)

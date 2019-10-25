@@ -15,9 +15,7 @@ class Thruster(Actuator):
 
         new_x = int(self.positions[self.owner][0] + x_move)
         new_y = int(self.positions[self.owner][1] + y_move)
-        print(new_x, new_y, self.terrain_map.shape[1], self.terrain_map.shape[0])
         if new_x >= 0 and new_x < self.terrain_map.shape[1] and new_y >= 0 and new_y < self.terrain_map.shape[0]:
-            print(f'Moving at speed {self.terrain_map[new_y, new_x]}')
             self.positions[self.owner] = [
                 self.positions[self.owner][0] + (x_move * self.terrain_map[new_y, new_x] * self.movement_modifier),
                 self.positions[self.owner][1] + (y_move * self.terrain_map[new_y, new_x] * self.movement_modifier),
