@@ -145,8 +145,8 @@ class CatchTheRedDot(Environment):
             recompute = False
             for t in self.terrain_areas:
                 if self.circle_collision(
-                    t_x + (t_size / 2), t['x'] + (t['size'] / 2),
-                    t_y + (t_size / 2), t['y'] + (t['size'] / 2),
+                    t_x, t['x'],
+                    t_y, t['y'],
                     t_size, t['size']
                 ):
                     recompute = True
@@ -163,9 +163,9 @@ class CatchTheRedDot(Environment):
         for t in self.terrain_areas:
             if self.terrain_speed[t['type']] == 0:
                 if self.circle_collision(
-                    self.destination[0] + 32, t['x'] + 32,
-                    self.destination[1] + 32, t['y'] + 32,
-                    64, 64
+                    self.destination[0] + 32, t['x'],
+                    self.destination[1] + 32, t['y'],
+                    32, t['size']
                 ):
                     replace = True
                     break
@@ -178,4 +178,4 @@ class CatchTheRedDot(Environment):
             (y1 - y2) * (y1 - y2)
         )
 
-        return distance < max(size1, size2)
+        return distance < size1 + size2
