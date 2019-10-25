@@ -24,7 +24,7 @@ class CatchTheRedDot(Environment):
         self.terrain_areas = []
         self.terrain_types = ['normal', 'mountain', 'forest']
         self.terrain_colors = [[0, 200, 100], [190, 190, 190], [0, 255, 0]]
-        self.terrain_speed = [1, 0, 0.5]
+        self.terrain_speed = [1, 0.1, 0.5]
         self.terrain_map = np.ones([self.screen_size[1], self.screen_size[0]])
         self.destination = [0, 0]
         self.create_terrain()
@@ -43,8 +43,7 @@ class CatchTheRedDot(Environment):
 
     def reset(self) -> None:
         # Model stuff
-        self.terrain_areas.clear()
-        self.terrain_map = np.ones([self.screen_size[1], self.screen_size[0]])
+        self.clear_terrain()
         self.create_terrain()
         self.place_red_dot()
         self.rect = pygame.Rect(
@@ -104,11 +103,11 @@ class CatchTheRedDot(Environment):
     def check_win(self) -> int:
         agent_id = 0
         for p in self.positions:
-            x1 = p[0] + 32
-            x2 = self.destination[0] + 32
-            y1 = p[1] + 32
-            y2 = self.destination[1] + 32
-            if self.circle_collision(x1, x2, y1, y2, 32, 32):
+            x1 = p[0]
+            x2 = self.destination[0]
+            y1 = p[1]
+            y2 = self.destination[1]
+            if self.circle_collision(x1, x2, y1, y2, 30, 30):
                 return agent_id
             agent_id = agent_id + 1
         return -1
@@ -173,9 +172,11 @@ class CatchTheRedDot(Environment):
             self.place_red_dot()
 
     def circle_collision(self, x1, x2, y1, y2, size1, size2) -> bool:
-        distance = math.sqrt(
-            (x1 - x2) * (x1 - x2) +
-            (y1 - y2) * (y1 - y2)
-        )
-
+        distance = math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
         return distance < size1 + size2
+
+    def clear_terrain(self) -> None:
+        self.terrain_areas.clear()
+        for i in range(0, self.terrain_map.shape[0]):
+            for j in range(0, self.terrain_map.shape[1]):
+                self.terrain_map[i, j] = 1
