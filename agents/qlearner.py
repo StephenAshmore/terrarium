@@ -14,12 +14,13 @@ class Model(nn.Layer):
 
 	# Activate the model (a.k.a. make a prediction)
 	def act(self, x: tf.Tensor) -> tf.Tensor:
-        return tf.nn.tanh(
-			self.lay2.act(
-			tf.nn.elu(
-			self.lay1.act(
-			tf.nn.elu(
-			self.lay0.act(x))))))
+		y = self.lay0.act(x)
+		y = tf.nn.elu(y)
+		y = self.lay1.act(y)
+		y = tf.nn.elu(y)
+		y = self.lay2.act(y)
+		y = tf.nn.tanh(y)
+		return 
 
 	# Compute the cost wrt the specified instance
 	def cost(self, x: tf.Tensor, y: tf.Tensor) -> tf.Tensor:
@@ -28,6 +29,7 @@ class Model(nn.Layer):
 	# Perform one batch of training
 	def refine(self, x: tf.Tensor, y: tf.Tensor) -> None:
 		self.optimizer.minimize(lambda: self.cost(x, y), self.params)
+
 
 
 # High-level example for how to use this class:
