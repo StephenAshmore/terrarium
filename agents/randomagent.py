@@ -9,7 +9,7 @@ class RandomAgent(Agent):
 
     def step(self) -> None:
         # Activate Sensors:
-        nums = []
+        nums: np.ndarray = []
         for i in range(0, len(self.sensors)):
             nums = nums + self.activate_sensor(i)
         # debug

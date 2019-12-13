@@ -1,4 +1,4 @@
-from typing import Tuple, List, Any
+from typing import Tuple, List, Any, Mapping
 import pygame
 from environments import Environment
 import numpy as np
@@ -21,7 +21,7 @@ class CatchTheRedDot(Environment):
         self.font = pygame.font.SysFont(None, 12)
 
         # Model stuff
-        self.terrain_areas = []
+        self.terrain_areas: List[Mapping[str, Any]] = []
         self.terrain_types = ['normal', 'mountain', 'forest']
         self.terrain_colors = [[0, 200, 100], [190, 190, 190], [0, 255, 0]]
         self.terrain_speed = [1, 0.1, 0.5]
@@ -36,8 +36,8 @@ class CatchTheRedDot(Environment):
             self.destination[1] + 64
         )
         self.agents: List[Agent] = []
-        self.render_names = []
-        self.positions: List[Any] = []
+        self.render_names: List[Any] = []
+        self.positions: List[List[float]] = []
         self.max_agents = 3
         self.current_agents = 0
 
@@ -171,7 +171,7 @@ class CatchTheRedDot(Environment):
         if replace:
             self.place_red_dot()
 
-    def circle_collision(self, x1, x2, y1, y2, size1, size2) -> bool:
+    def circle_collision(self, x1: float, x2: float, y1: float, y2: float, size1: float, size2: float) -> bool:
         distance = math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
         return distance < size1 + size2
 
