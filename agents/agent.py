@@ -51,6 +51,9 @@ class Agent(object):
 	def get_name(self) -> str:
 		return self.name
 
+	def reset(self) -> None:
+		pass
+
 	@abstractmethod
 	def step(self) -> None:
 		raise NotImplementedError('stub')

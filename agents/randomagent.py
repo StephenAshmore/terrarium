@@ -1,6 +1,8 @@
+from typing import List
 import random
 import numpy as np
 from .agent import Agent
+from tools import Actuator
 
 class RandomAgent(Agent):
     def __init__(self) -> None:
@@ -9,15 +11,12 @@ class RandomAgent(Agent):
 
     def step(self) -> None:
         # Activate Sensors:
-        nums: np.ndarray = []
-        for i in range(0, len(self.sensors)):
-            nums = nums + self.activate_sensor(i)
-        # debug
+        nums: List[np.ndarray] = []
+        for i in range(1, len(self.sensors)): # skip the first sensor, which is the thermometer
+            nums.append(self.activate_sensor(i))
         obs = np.array(nums)
-        # take a random action, ignore all sensors
-        if len(self.actuators) > 0:
-            actuator_choice = random.randrange(0, len(self.actuators))
-            action = np.empty([0])
-            for i in range(0, 8):
-                action = np.append(action, np.random.normal())
-            self.activate_actuator(actuator_choice, action)
+
+        # Take random actions, ignoring all sensors
+        for i in range(len(self.actuators)):
+            action = np.random.normal(0., 1., (Actuator.ACTION_DIMS,))
+            self.activate_actuator(i, action)

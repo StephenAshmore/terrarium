@@ -91,8 +91,8 @@ class LayerMaxPooling2d(Layer):
 # A linear (a.k.a. "fully-connected", a.k.a. "dense") layer
 class LayerLinear(Layer):
     def __init__(self, inputsize: int, outputsize: int) -> None:
-        self.weights = tf.Variable(tf.random.normal([inputsize, outputsize], stddev = max(0.03, 1.0 / inputsize), dtype = tf.float32))
-        self.bias = tf.Variable(tf.random.normal([outputsize], stddev = max(0.03, 1.0 / inputsize), dtype = tf.float32))
+        self.weights = tf.Variable(tf.random.normal([inputsize, outputsize], stddev = max(0.03, 1.0 / inputsize), dtype = tf.float64))
+        self.bias = tf.Variable(tf.random.normal([outputsize], stddev = max(0.03, 1.0 / inputsize), dtype = tf.float64))
         self.params = [ self.weights, self.bias ]
 
     def act(self, x: tf.Tensor) -> tf.Tensor:
@@ -103,7 +103,7 @@ class LayerLinear(Layer):
 class LayerCatTable(Layer):
     def __init__(self, categories: int, outputsize: int) -> None:
         self.outputsize = outputsize
-        self.weights = tf.Variable(tf.random.uniform([categories, outputsize], dtype = tf.float32))
+        self.weights = tf.Variable(tf.random.uniform([categories, outputsize], dtype = tf.float64))
         self.params = [ self.weights ]
 
     def act(self, x: tf.Tensor) -> tf.Tensor:

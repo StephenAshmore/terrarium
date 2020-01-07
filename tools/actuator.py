@@ -4,6 +4,8 @@ import numpy as np
 from .tool import Tool
 
 class Actuator(Tool):
+	ACTION_DIMS = 3
+
 	def __init__(self) -> None:
 		pass
 

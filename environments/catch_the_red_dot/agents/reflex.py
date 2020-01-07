@@ -13,9 +13,9 @@ class ReflexAgent(Agent):
 
     def step(self) -> None:
         # Get current location:
-        loc = self.activate_sensor(0)
+        loc = self.activate_sensor(1)
         # Get red dot location from radar:
-        red = self.activate_sensor(1)
+        red = self.activate_sensor(2)
 
         x_move = 0
         if red[0] > loc[0]:

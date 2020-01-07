@@ -8,7 +8,7 @@ import time
 import math
 
 from agents import Agent
-from .tools import Locator, Radar, Thruster
+from .tools import Locator, Radar, Thermometer, Thruster
 
 
 class CatchTheRedDot(Environment):
@@ -56,11 +56,14 @@ class CatchTheRedDot(Environment):
         for i in range(0, len(self.positions)):
             self.positions[i] = [random.randrange(
                 0, self.screen_size[0] - 64), random.randrange(0, self.screen_size[1] - 64)]
+        for agent in self.agents:
+            agent.reset()
 
     def add_agent(self, a: Agent) -> None:
         if len(self.agents) < self.max_agents:
             self.positions.append([random.randrange(
                 0, self.screen_size[0] - 64), random.randrange(0, self.screen_size[1] - 64)])
+            a.add_sensor(Thermometer(self.positions, self.destination))
             a.add_sensor(Locator(self.positions))
             a.add_sensor(Radar(self.destination))
             a.add_actuator(Thruster(self.positions, self.terrain_map))

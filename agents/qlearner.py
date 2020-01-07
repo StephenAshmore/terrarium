@@ -2,7 +2,7 @@ from typing import Deque, Tuple
 import numpy as np
 import collections
 import random
-import nn
+from agents import nn
 import tensorflow as tf
 
 # A neural network model used to represent the Q-table in a Deep Q-learner
@@ -12,7 +12,7 @@ class Model(nn.Layer):
         self.lay1 = nn.LayerLinear(64, 64)
         self.lay2 = nn.LayerLinear(64, outputsize)
         self.optimizer = tf.keras.optimizers.SGD(learning_rate = 0.01)
-        self.params = self.h0.params + self.h2.params
+        self.params = self.lay0.params + self.lay1.params + self.lay2.params
 
     # Activate the model (a.k.a. make a prediction)
     def act(self, x: tf.Tensor) -> tf.Tensor:
@@ -72,7 +72,8 @@ class qlearner(object):
         best_value = 0.
         for i in range(self.exploit_samples):
             action = self._explore(state)
-            value = float(self.model.act(np.concatenate([state, action]))) * self.horizon_scale
+            batch = np.expand_dims(np.concatenate([state, action]), 0)
+            value = float(self.model.act(batch)) * self.horizon_scale
             if value > best_value or best_action is None:
                 best_value = value
                 best_action = action
