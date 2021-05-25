@@ -8,7 +8,7 @@ import time
 import math
 
 from agents import Agent
-from .tools import Locator, Radar, Thermometer, Thruster
+from .tools import Locator, Radar, Thermometer, TerrainRadar, Thruster
 
 
 class CatchTheRedDot(Environment):
